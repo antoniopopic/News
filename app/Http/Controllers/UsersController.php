@@ -14,6 +14,8 @@ class UsersController extends Controller
      */
     public function index()
     {
+        $users = User::all();
+
         return view(('users.index'), compact('users'));
     }
 
@@ -35,13 +37,8 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
 
-        $user->reqest('username');
-        $user->reqest('email');
-        $user->reqest('password');
-        $user->reqest('password_confirmation');
-        $user->save();
+        User::create(request(['username', 'email', 'password']));
 
         return view('users.index');
     }
@@ -52,9 +49,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        return view('users.show');
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -63,9 +60,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        return view(('users.edit'), compact('user'));
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -75,14 +72,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(User $user)
     {
-        $user = $user->id;
+        $user->update(request(['username', 'email', 'password']));
 
-        $user->request('username');
-        $user->request('email');
-        $user->request('password');
-        $user->request('password_confirmation');
+        return view('users.index');
     }
 
     /**
@@ -91,8 +85,10 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return view('users.index');
     }
 }

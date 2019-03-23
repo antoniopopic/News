@@ -1,4 +1,3 @@
-@section('content')
 <nav class="navbar fixed-top navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,4 +27,3 @@
         </ul>
     </div>
 </nav>
-@endsection
