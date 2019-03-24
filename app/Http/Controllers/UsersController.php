@@ -16,7 +16,7 @@ class UsersController extends Controller
     {
         $users = User::all();
 
-        return view(('users.index'), compact('users'));
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -37,10 +37,9 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-
         User::create(request(['username', 'email', 'password']));
 
-        return view('users.index');
+        return redirect()->route('users.index')/* ->withFlashMessage('User created successfully.') */;
     }
 
     /**

@@ -1,26 +1,42 @@
 @extends('layouts.master')
 
 @section('content')
-    <form action="{{ route('users.store') }}" method="post">
-    @csrf
-        <div>
-            <input type="text" name="username" placeholder="eg. IceCream12"><br>
-        </div>
-        
-        <div>
-            <input type="email" name="email" placeholder="eg. john@john.com"><br><br>
-        </div>
-        
-        <div>   
-            <input type="password" name="password" id="password" placeholder="********"><br><br>
-        </div>
-        
-        <div>
-            <input type="password" name="confirm_password" id="confirm_password" placeholder="********"><br><br>
-        </div>
-        
-        <div>
-            <input type="submit" value="Add user">
-        </div>
-    </form>
+
+<div class="container">
+
+<h1>Create a user</h1>
+
+<form method="POST" action="{{route('users.store')}}">
+@csrf
+    <div class="form-group">
+        <label for="username">
+            <input type="text" id="username" name="username" placeholder="Enter username">
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label for="email">
+            <input type="email" id="email" name="email" placeholder="Enter email">
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label for="password">
+            <input type="password" id="password" name="password" placeholder="Enter password">
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label for="confirm_password">
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Enter password again">
+        </label>
+    </div>
+
+    <div class="btn btn-primary" >
+        <button type="submit" id="submit" name="submit">Create a user</button>
+        <a href="{{ route('users.index')}}" class="btn btn-danger" role="button">Back</a>
+    </div>
+
+</form>
+    
 @endsection
