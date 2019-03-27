@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
-use App\User;
 
-class UsersController extends Controller
+class PostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,10 +14,11 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $posts = Post::all();
 
-        return view('users.index', compact('users'));
+        return view('posts.index', compact('posts'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -30,7 +27,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('posts.create');
     }
 
     /**
@@ -41,57 +38,58 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        User::create(request(['username', 'email', 'password']));
+        Post::create(request(['title', 'description', 'body']));
 
-        return redirect()->route('users.index')/* ->withFlashMessage('User created successfully.') */;
+        return redirect()->route('posts.index')/* ->withFlashMessage('Post created successfully.') */;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Post $post)
     {
-        return view('users.show', compact('user'));
+        return view('posts.show', compact('post'));
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Post $post)
     {
-        return view('users.edit', compact('user'));
+        return view('posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(User $user)
+    public function update(Request $request, Post $post)
     {
-        $user->update(request(['username', 'email', 'password']));
+        $post->update(request(['title', 'description', 'body']));
 
-        return redirect()->route('users.index')->withFlashMessage('Korisnik je ' . $user->username . ' uspješno promijenjen.');
+        return view('posts.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Post $post)
     {
-        $user->delete();
+        $post->delete();
 
-        return redirect()->route('users.index')->withFlashMessage('Korisnik je uspješno izbrisan.');
+        return view('posts.index');
     }
 }
