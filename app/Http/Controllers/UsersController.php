@@ -41,6 +41,12 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        request()->validate([
+            'username'  => 'required|min:3|max:255',
+            'email'     => 'required|email|max:255|unique:users',
+            'password'  => 'required|confirmed|min:8'
+        ]);
+
         User::create(request(['username', 'email', 'password']));
 
         return redirect()->route('users.index')/* ->withFlashMessage('User created successfully.') */;
@@ -77,6 +83,12 @@ class UsersController extends Controller
      */
     public function update(User $user)
     {
+        request()->validate([
+            'username'  => 'required|min:3|max:255',
+            'email'     => 'required|email|max:255|unique:users',
+            'password'  => 'required|confirmed|min:8'
+        ]);
+
         $user->update(request(['username', 'email', 'password']));
 
         return redirect()->route('users.index')->withFlashMessage('Korisnik je ' . $user->username . ' uspješno promijenjen.');

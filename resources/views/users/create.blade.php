@@ -36,7 +36,7 @@
         <button type="submit" id="submit" name="submit">Create a user</button>
         <a href="{{ route('users.index')}}" class="btn btn-danger" role="button">Back</a>
     </div>
-
+    @include('layouts.errors')
 </form>
     
 @endsection

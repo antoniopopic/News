@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::latest();
 
         return view('posts.index', compact('posts'));
     }
@@ -38,7 +42,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        Post::create(request(['title', 'description', 'body']));
+
+        request()->validate([
+            'title' => ['required', 'min:3', 'max:255'],
+            'description' => 'required|min:3|max:255',
+            'body' => 'required|min:3|max:65535'
+        ]);
+
+        /* Post::create(['title', 'description', 'body', 'user_id' => auth()->id()]); */
+
+        Post::create([
+            'title'         => request('title'),
+            'description'   => request('description'),
+            'body'          => request('body'),
+            'user_id'       => auth()->id()
+        ]);
 
         return redirect()->route('posts.index')/* ->withFlashMessage('Post created successfully.') */;
     }
@@ -75,9 +93,16 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+
+        request()->validate([
+            'title' => ['required', 'min:3', 'max:255'],
+            'description' => 'required|min:3|max:255',
+            'body' => 'required|min:3|max:65535'
+        ]);
+
         $post->update(request(['title', 'description', 'body']));
 
-        return view('posts.index');
+        return redirect()->route('posts.show', $post->id)->withFlashMessage('Post ' . $post->title . ' is successfully updated.');
     }
 
     /**
@@ -90,6 +115,6 @@ class PostController extends Controller
     {
         $post->delete();
 
-        return view('posts.index');
+        return redirect()->route('posts.index')->withFlashMessage('Post is successfully deleted.');
     }
 }

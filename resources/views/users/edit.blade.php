@@ -30,6 +30,6 @@
             <button type="submit" class="btn btn-primary">Update User</button>
             <a href="{{route('users.index')}}" class="btn">Back</a>
     </div>
-
+    @include('layouts.errors')
 </form>
 @endsection
