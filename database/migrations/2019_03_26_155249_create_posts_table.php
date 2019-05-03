@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             //$table->string('slug')->unique();
             $table->integer('user_id');
             $table->timestamps();
+            $table->string('cover_image');
         });
     }
 

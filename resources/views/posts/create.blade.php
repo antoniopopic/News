@@ -4,7 +4,7 @@
 
 <h1>Create Post</h1>
 
-<form method="POST" action="{{ route('posts.store') }}">
+<form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
 @csrf
 
     <div class="form-group">
@@ -20,6 +20,10 @@
     <div class="form-group">
             <label for="body">Body</label>
             <textarea class="form-control {{ $errors->has('body') ? 'has-error' : '' }} " id="body" name="body" rows="10" cols="80">{{ old('body') }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="cover_image">Photo</label>
+        <input name="cover_image" type="file" accept="image/*">
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Publish</button>
