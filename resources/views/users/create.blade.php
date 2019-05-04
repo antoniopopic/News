@@ -2,8 +2,6 @@
 
 @section('content')
 
-<div class="container">
-
 <h1>Create a user</h1>
 
 <form method="POST" action="{{route('users.store')}}">

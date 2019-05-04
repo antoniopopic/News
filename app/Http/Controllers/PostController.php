@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+
 
 class PostController extends Controller
 {
     public function __construct(){
         $this->middleware('auth')->except(['index', 'show']);
+    }
+
+    public function search(Request $request){
+        $search = $request->get('search');
+        $posts = DB::table('posts')->where('title', 'like', '%'.$search.'%')->paginate(10);
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -19,7 +27,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get();
+        
+        $posts = Post::latest()->paginate(12);
 
         return view('posts.index', compact('posts'));
     }
@@ -102,7 +111,7 @@ class PostController extends Controller
     {
         $post = Post::find($id);
 
-        dd($post);
+        //dd($post);
         return view('posts.show', compact('post'));
 
     }
@@ -132,7 +141,7 @@ class PostController extends Controller
             'title' => ['required', 'min:3', 'max:255'],
             'description' => 'required|min:3|max:255',
             'body' => 'required|min:3|max:65535',
-            'cover_image' => 'image|nullable|max:1999'
+            'cover_image' => 'image|nullable|max:2043|mimes:jpeg, png, jpg, gif'
         ]);
 
         //Handle File Upload
@@ -153,16 +162,16 @@ class PostController extends Controller
             $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameToStore);
         }
 
-        if ($request->hasFile('cover_image')) {
-            if ($post->cover_image != 'noimage.jpg') {
-                Storage::delete('public/cover_images/'.$post->cover_image);
+        if($request->hasFile('cover_image')){
+            if($post->cover_image != 'noimage.jpg') {
+                Storage::delete('public/cover_images/' . $post->cover_image);
             }
             $post->cover_image = $fileNameToStore;
         }   
  
 
 
-        $post->update(request(['title', 'description', 'body', 'cover_image']));
+        $post->update(request(['title', 'description', 'body']));
 
         return redirect()->route('posts.show', $post->id)->withFlashMessage('Post ' . $post->title . ' is successfully updated.');
     }

@@ -1,18 +1,20 @@
 @extends('layouts.master')
 
 @section('content')
-<!-- <a href="{{ route('posts.show', $post->title) }}">
-    <h2 class="blog-post-title">{{ $post->title }}</h2>
-</a> -->
-<p class="blog-post-meta"> {{ $post->created_at->toFormattedDateString() }}</p>
-    <img style="width:100%" src="/storage/cover_images/{{$post->cover_image}}">
-    <br><br>
-    <div>
-        {!!$post->body!!}
-    </div>
-    <hr>
-    <small>Written on {{$post->created_at}} by {{$post->user->username}}</small>
-    <hr>
+<a name="top"></a>
+<a href="{{ route('posts.show', $post->id) }}">
+    <h2 class="blog-post-title" id=refresh>{{ $post->title }}</h2>
+</a>
+<br>
+<div>
+<h5>{{$post->description}}</h5>
+</div>
+<br>
+
+    <img style="width:100%" height="700px" src="/storage/cover_images/{{$post->cover_image}}">
+    <br><br> 
+	<small>Written on {{$post->created_at->toFormattedDateString()}} by {{$post->user->username}}</small>
+    <hr width="100%">
     <!-- uredi od if do else -->
     @if ( $post->user_id == auth()->id() )
 	<form style="margin-top:4%" action="{{ route('posts.destroy',$post->id) }}" method="POST">
@@ -31,5 +33,9 @@
 			<a class="btn btn-primary" href="{{ route('posts.index') }}">Go Back</a>
 		</div>
 	@endif
-    <hr/>    
+	<hr/>
+	<div>
+        {!!$post->body!!}
+	</div>
+	<a href="#top">Back to top</a>     
 @endsection
