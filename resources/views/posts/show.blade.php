@@ -27,15 +27,18 @@
 		<div class="btn-group float-right btn-group-lg">	
 			<a class="btn btn-primary" href="{{ route('posts.index') }}">Go Back</a>
 		</div>
+		<hr/>
 	</form>	
 	@else 
 		<div class="btn-group btn-group-lg">	
 			<a class="btn btn-primary" href="{{ route('posts.index') }}">Go Back</a>
 		</div>
+		<hr/>
 	@endif
-	<hr/>
+	
 	<div>
         {!!$post->body!!}
 	</div>
+	<hr>
 	<a href="#top">Back to top</a>     
 @endsection

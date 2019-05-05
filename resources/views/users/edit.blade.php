@@ -6,29 +6,29 @@
 <form method="post" action="{{ route('users.update', $user->id) }}">
 @method('PATCH')
 @csrf
-    <div class="field">
+    <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="{{$user->username}}">
+        <input type="text" class="form-control" name="username" id="username" value="{{$user->username}}">
     </div>
 
-    <div class="field">
+    <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="{{$user->email}}">
+        <input type="email" class="form-control" name="email" id="email" value="{{$user->email}}">
     </div>
 
-    <div class="field">
+    <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password">
+        <input type="password" class="form-control" name="password" id="password">
     </div>
 
-    <div class="field">
-        <label for="confirm_password">Confirm password</label>
-        <input type="password" name="confirm_password" id="confirm_password">
+    <div class="form-group">
+        <label for="password_confirmation">Confirm password</label>
+        <input type="password" class="form-control" name="password_confirmation" id="password_confirmation">
     </div>
 
     <div class="form-group">
             <button type="submit" class="btn btn-primary">Update User</button>
-            <a href="{{route('users.index')}}" class="btn">Back</a>
+            <a href="{{route('users.index')}}" class="btn btn-secondary">Back</a>
     </div>
     @include('layouts.errors')
 </form>

@@ -44,7 +44,7 @@ class UsersController extends Controller
         request()->validate([
             'username'  => 'required|min:3|max:255',
             'email'     => 'required|email|max:255|unique:users',
-            'password'  => 'required|confirmed|min:8'
+            'password'  => 'required|confirmed|min:8',
         ]);
 
         User::create(request(['username', 'email', 'password']));
@@ -85,7 +85,7 @@ class UsersController extends Controller
     {
         request()->validate([
             'username'  => 'required|min:3|max:255',
-            'email'     => 'required|email|max:255|unique:users',
+            'email'     => 'required|email|max:255|unique:users,email,'.$user->id,
             'password'  => 'required|confirmed|min:8'
         ]);
 

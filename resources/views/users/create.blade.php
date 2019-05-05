@@ -7,32 +7,28 @@
 <form method="POST" action="{{route('users.store')}}">
 @csrf
     <div class="form-group">
-        <label for="username">
-            <input type="text" id="username" name="username" placeholder="Enter username">
-        </label>
+        <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
     </div>
 
     <div class="form-group">
-        <label for="email">
-            <input type="email" id="email" name="email" placeholder="Enter email">
-        </label>
+        <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
     </div>
 
     <div class="form-group">
-        <label for="password">
-            <input type="password" id="password" name="password" placeholder="Enter password">
-        </label>
+        <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
     </div>
 
     <div class="form-group">
-        <label for="confirm_password">
-            <input type="password" id="confirm_password" name="confirm_password" placeholder="Enter password again">
-        </label>
+        <label for="password_confirmation">Confirm Password</label>
+            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Enter password again">
     </div>
 
-    <div class="btn btn-primary" >
-        <button type="submit" id="submit" name="submit">Create a user</button>
-        <a href="{{ route('users.index')}}" class="btn btn-danger" role="button">Back</a>
+    <div class="form-group">
+        <button type="submit" id="submit" class="btn btn-primary" name="submit">Create a user</button>
+        <a href="{{ route('users.index')}}" class="btn btn-secondary" role="button">Back</a>
     </div>
     @include('layouts.errors')
 </form>

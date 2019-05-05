@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-
 <h1>Create Post</h1>
 
 <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
