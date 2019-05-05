@@ -20,7 +20,7 @@
 
 <div class="form-group">
     <label for="body">Body:</label>
-    <textarea class="form-control <!-- {{ $errors->has('body') ? 'has-error' : '' }} --> " id="body" name="body" rows="10" cols="80">{{ $post->body }}</textarea>
+    <textarea class="form-control <!-- {{ $errors->has('body') ? 'has-error' : '' }} --> " id="article-ckeditor" name="body" rows="10" cols="80">{{ $post->body }}</textarea>
 </div>
 
 <div class="form-group">
