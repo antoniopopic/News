@@ -8,17 +8,17 @@
 
     <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control {{ $errors->has('title') ? 'has-error' : '' }} " id="title" name="title" value="{{ old('title') }}" />
+            <input type="text" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }} " id="title" name="title" value="{{ old('title') }}" required />
     </div>
 
     <div class="form-group">
             <label for="description">Description</label>
-            <input type="text" class="form-control {{ $errors->has('description') ? 'has-error' : '' }} " id="description" name="description" value="{{ old('description') }}">
+            <input type="text" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }} " id="description" name="description" value="{{ old('description') }}" required>
     </div>
 
     <div class="form-group">
             <label for="body">Body</label>
-            <textarea class="form-control {{ $errors->has('body') ? 'has-error' : '' }} " id="article-ckeditor" name="body" rows="10" cols="80">{{ old('body') }}</textarea>
+            <textarea class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }} " id="article-ckeditor" name="body" rows="10" cols="80" required>{{ old('body') }}</textarea>
     </div>
     <div class="form-group">
         <label for="cover_image">Photo</label>

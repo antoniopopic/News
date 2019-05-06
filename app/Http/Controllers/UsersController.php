@@ -42,7 +42,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'username'  => 'required|min:3|max:255',
+            'username'  => 'required|min:3|max:255|unique:users',
             'email'     => 'required|email|max:255|unique:users',
             'password'  => 'required|confirmed|min:8'
         ]);
@@ -84,9 +84,9 @@ class UsersController extends Controller
     public function update(User $user)
     {
         request()->validate([
-            'username'  => 'required|min:3|max:255',
+            'username'  => 'required|min:3|max:255|unique:users,username,'.$user->id,
             'email'     => 'required|email|max:255|unique:users,email,'.$user->id,
-            'password'  => 'required|confirmed|min:8'
+            'password'  => 'nullable|confirmed|min:6'
         ]);
 
         $user->update(request(['username', 'email', 'password']));

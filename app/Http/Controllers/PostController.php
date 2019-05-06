@@ -79,16 +79,6 @@ class PostController extends Controller
         }else{
             $fileNameToStore = 'noimage.jpg';
         }
-        
-        /* Post::create(['title', 'description', 'body', 'user_id' => auth()->id()]); */
-
-        /* $post = new Post;
-        $post->title = $request->input('title');
-        $post->description = $request->input('description');
-        $post->body = $request->input('body');
-        $post->user_id = auth()->user()->id;
-        $post->cover_image = $fileNameToStore;
-        $post->save(); */
 
         Post::create([
             'title'         => request('title'),
@@ -170,7 +160,7 @@ class PostController extends Controller
                 Storage::delete('public/cover_images/' . $post->cover_image);
             }
             $post->cover_image = $fileNameToStore;
-        }   
+        }
  
 
 
