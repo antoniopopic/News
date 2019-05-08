@@ -88,7 +88,7 @@ class PostController extends Controller
             'cover_image'   => $fileNameToStore
         ]);
 
-        return redirect()->route('posts.index')/* ->withFlashMessage('Post created successfully.') */;
+        return redirect()->route('posts.index')->with('status', 'Post created successfully.');
     }
 
     /**
@@ -166,7 +166,7 @@ class PostController extends Controller
 
         $post->update(request(['title', 'description', 'body']));
 
-        return redirect()->route('posts.show', $post->id)->withFlashMessage('Post ' . $post->title . ' is successfully updated.');
+        return redirect()->route('posts.show', $post->id)->with('status', 'Post ' . $post->title . ' is successfully updated.');
     }
 
 
@@ -184,6 +184,6 @@ class PostController extends Controller
         
         $post->delete();
 
-        return redirect()->route('posts.index')->withFlashMessage('Post is successfully deleted.');
+        return redirect()->route('posts.index')->with('status', 'Post is successfully deleted.');
     }
 }

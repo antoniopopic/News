@@ -49,7 +49,7 @@ class UsersController extends Controller
 
         User::create(request(['username', 'email', 'password']));
 
-        return redirect()->route('users.index')/* ->withFlashMessage('User created successfully.') */;
+        return redirect()->route('users.index')->with('status', 'User created successfully.');
     }
 
     /**
@@ -91,7 +91,7 @@ class UsersController extends Controller
 
         $user->update(request(['username', 'email', 'password']));
 
-        return redirect()->route('users.index')->withFlashMessage('Korisnik je ' . $user->username . ' uspješno promijenjen.');
+        return redirect()->route('users.index')->with('status', 'User ' . $user->username . ' is successfully updated.');
     }
 
     /**
@@ -104,6 +104,6 @@ class UsersController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('users.index')->withFlashMessage('Korisnik je uspješno izbrisan.');
+        return redirect()->route('users.index')->with('status', 'User is successfully deleted');
     }
 }

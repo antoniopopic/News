@@ -3,6 +3,11 @@
 @section('content')
 <div class="row my-4">
   <div class="col">
+    @if (session('status'))
+      <div class="alert alert-success">
+          {{ session('status') }}
+      </div>
+    @endif
     <div class="jumbotron">
       <div class="container-fluid">
         <div class="row">

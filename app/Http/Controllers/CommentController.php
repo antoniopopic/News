@@ -33,9 +33,17 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id)
     {
-        //
+        $this->validate(request(), ['body' => 'required|min:2']);
+
+        Comment::create([
+            'body' => request('body'),
+            'post_id' => $id,
+            'user_id' => auth()->id()
+        ]);
+
+        return back();
     }
 
     /**

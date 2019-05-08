@@ -1,6 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+@if (session('status'))
+	<div class="alert alert-success">
+		{{ session('status') }}
+	</div>
+@endif
 <a name="top"></a>
 <a href="{{ route('posts.show', $post->id) }}">
     <h2 class="blog-post-title" id=refresh>{{ $post->title }}</h2>
@@ -39,6 +44,44 @@
 	<div>
         {!!$post->body!!}
 	</div>
+
+	<div class="card">
+            <div class="card-body">
+                <form action="/posts/{{ $post->id }}/comment" method="post">
+                    @csrf
+
+                    <div class="form-group">
+                        <textarea name="body" placeholder="Your comment here" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Add Comment</button>
+                    </div>
+                </form>                
+            </div>
+        </div>
+
+        @if (count($post->comments))
+            <hr />
+            <div class="comments">
+                <h3>Comments:</h3>
+                <ul>
+                    @foreach($post->comments as $comment)
+
+                        <li class="list-group-item">
+                            <b>{{ $comment->user->username }},</b>&nbsp;
+                            <i>{{ $comment->created_at->diffForHumans() }}</i>:&nbsp;
+                            {{ $comment->body }}
+                        </li>
+                        
+                    @endforeach
+                </ul>            
+            </div>
+        @else
+            <hr />
+            <p>This post still doesnt have any comments! Be the 1st to comment.</p>
+        @endif
+
 	<hr>
 	<a href="#top">Back to top</a>     
 @endsection

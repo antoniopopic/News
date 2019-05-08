@@ -1,6 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
 <div class="panel-heading">
     <a href="{{ route('users.create') }}" class="btn btn-primary" role="button" style="margin-top:25px; margin-bottom:10px;">Add new User</a>                
 </div>

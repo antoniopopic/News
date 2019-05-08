@@ -16,6 +16,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/* Route::get('/', function () {
+    return redirect()->route('posts.index');
+}); */
+
 //Users
 Route::get('/users', 'UsersController@index')->name('users.index');
 Route::get('/users/create', 'UsersController@create')->name('users.create');
@@ -37,3 +41,5 @@ Route::get('/posts/{post}/edit', 'PostController@edit')->name('posts.edit');
 Route::patch('/posts/{post}',	'PostController@update')->name('posts.update');
 Route::delete('/posts/{post}', 'PostController@destroy')->name('posts.destroy');
 Route::get('/search', 'PostController@search'); 
+
+Route::post('/posts/{id}/comment', 'CommentController@store')->middleware('auth');

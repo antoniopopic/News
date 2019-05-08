@@ -8,12 +8,12 @@
 @csrf
     <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" id="username" name="username" placeholder="Enter username" required>
+        <input type="text" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" id="username" name="username" placeholder="Enter username" value="{{ old('username') }}" required>
     </div>
 
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" name="email" placeholder="Enter email" required>
+        <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" name="email" placeholder="Enter email" value="{{ old('email') }}" required>
     </div>
 
     <div class="form-group">
