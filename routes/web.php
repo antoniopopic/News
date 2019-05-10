@@ -43,3 +43,5 @@ Route::delete('/posts/{post}', 'PostController@destroy')->name('posts.destroy');
 Route::get('/search', 'PostController@search'); 
 
 Route::post('/posts/{id}/comment', 'CommentController@store')->middleware('auth');
+
+Route::get('/posts/categories/{category}', 'CategoryController@index')->name('categories');

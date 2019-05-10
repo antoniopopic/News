@@ -24,6 +24,22 @@
         <label for="cover_image">Photo</label>
         <input name="cover_image" type="file" accept="image/*">
     </div>
+    @isset ($categories) 
+        <div class="{{ $errors->has('category') ? 'is-invalid' : ''}}">
+                <label for="select">Categories:</label><br/>
+                <div class="select">     
+                <select class="browser-default custom-select" id="category" name="category">
+                @foreach ($categories as $category)
+                    
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    
+                @endforeach
+                </select>
+            </div>
+        </div>
+        <hr>    
+    @endisset
+    
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Publish</button>
         <a href="{{ route('posts.index') }}" class="btn btn-danger" role="button">Back</a>

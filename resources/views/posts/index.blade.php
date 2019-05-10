@@ -34,6 +34,6 @@
     </div>
   </div>
 </div>
-{{$posts->links()}}
+<!-- pagination_links_broken -->
 @endsection
   

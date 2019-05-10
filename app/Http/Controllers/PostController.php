@@ -6,6 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Category;
 
 
 class PostController extends Controller
@@ -16,7 +17,7 @@ class PostController extends Controller
 
     public function search(Request $request){
         $search = $request->get('search');
-        $posts = DB::table('posts')->where('title', 'like', '%'.$search.'%')->paginate(10);
+        $posts = DB::table('posts')->where('title', 'like', '%'.$search.'%')->paginate(30);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -28,7 +29,7 @@ class PostController extends Controller
     public function index()
     {
         
-        $posts = Post::latest()->paginate(12);
+        $posts = Post::latest()->paginate(30);
 
         return view('posts.index', compact('posts'));
     }
@@ -41,6 +42,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        $categories = Category::all();
         return view('posts.create');
     }
 
@@ -86,7 +88,8 @@ class PostController extends Controller
             'body'          => request('body'),
             'user_id'       => auth()->id(),
             'cover_image'   => $fileNameToStore
-        ]);
+        ])->categories()->attach(request('category'));
+
 
         return redirect()->route('posts.index')->with('status', 'Post created successfully.');
     }
@@ -117,6 +120,7 @@ class PostController extends Controller
         if(auth()->user()->id !== $post->user_id){
             return redirect(route('posts.index'));
         }
+        $categories = Category::all();
         return view('posts.edit', compact('post'));
     }
 
@@ -165,6 +169,8 @@ class PostController extends Controller
 
 
         $post->update(request(['title', 'description', 'body']));
+
+        $post->categories()->sync(request('category'));
 
         return redirect()->route('posts.show', $post->id)->with('status', 'Post ' . $post->title . ' is successfully updated.');
     }

@@ -24,7 +24,11 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('users.index') }}">Users</a>  
       </li>
-      
+      @foreach($categories as $category)
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('categories', $category) }}">{{ $category->name }}</a>
+        </li>
+      @endforeach    
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
