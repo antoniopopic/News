@@ -29,7 +29,7 @@ Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit');
 Route::patch('/users/{user}',	'UsersController@update')->name('users.update');
 Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -42,6 +42,6 @@ Route::patch('/posts/{post}',	'PostController@update')->name('posts.update');
 Route::delete('/posts/{post}', 'PostController@destroy')->name('posts.destroy');
 Route::get('/search', 'PostController@search'); 
 
-Route::post('/posts/{id}/comment', 'CommentController@store')->middleware('auth');
+Route::post('/posts/{id}/comment', 'CommentController@store')->middleware('verified');
 
 Route::get('/posts/categories/{category}', 'CategoryController@index')->name('categories');
