@@ -34,6 +34,5 @@
     </div>
   </div>
 </div>
-<!-- pagination_links_broken -->
 @endsection
   

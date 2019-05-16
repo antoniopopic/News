@@ -44,10 +44,26 @@
     <hr>
 @endisset
 
+<label for="tags">Tags:</label>
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTag" style="float: right">
+Add New Tag
+</button>
+<br/>
+<div class="d-block my-3">
+        @foreach($tags as $tag)
+        <label class="custom-control overflow-checkbox" style="display:inline">
+        <input type="checkbox" value="{{ $tag->id }}" name="tags[]" class="overflow-control-input" {{ $tag->posts->contains($post->id) ? 'checked=checked' : ''}}>
+            <span class="overflow-control-indicator"></span>
+            <span class="overflow-control-description">{{ $tag->name }}</span>
+        </label>
+        @endforeach
+</div>
+
 <div>
     <button type="submit" class="btn btn-primary">Confirm</button>
     <a href="{{ route('posts.show', $post->id) }}" class="btn btn-danger" role="button">Back</a>
 </div>
 @include('layouts.errors')
 </form>
+@include('tags.modal')
 @endsection

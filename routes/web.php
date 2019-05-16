@@ -45,3 +45,6 @@ Route::get('/search', 'PostController@search');
 Route::post('/posts/{id}/comment', 'CommentController@store')->middleware('verified');
 
 Route::get('/posts/categories/{category}', 'CategoryController@index')->name('categories');
+
+Route::get('/posts/tags/{tag}', 'TagController@index')->name('tags');
+Route::post('/tags', 'TagController@store')->name('tags.store');

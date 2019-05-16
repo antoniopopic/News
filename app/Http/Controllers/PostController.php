@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Category;
+use App\Tag;
 
 
 class PostController extends Controller
@@ -42,8 +43,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('posts.create');
+        return view('posts.create')->with(compact('tags'));
     }
 
     /**
@@ -82,13 +84,16 @@ class PostController extends Controller
             $fileNameToStore = 'noimage.jpg';
         }
 
-        Post::create([
+        $post = Post::create([
             'title'         => request('title'),
             'description'   => request('description'),
             'body'          => request('body'),
             'user_id'       => auth()->id(),
             'cover_image'   => $fileNameToStore
-        ])->categories()->attach(request('category'));
+        ]);
+
+        $post->categories()->attach(request('category'));
+        $post->tags()->attach(request('tags'));
 
 
         return redirect()->route('posts.index')->with('status', 'Post created successfully.');
@@ -104,7 +109,6 @@ class PostController extends Controller
     {
         $post = Post::find($id);
 
-        //dd($post);
         return view('posts.show', compact('post'));
 
     }
@@ -120,8 +124,12 @@ class PostController extends Controller
         if(auth()->user()->id !== $post->user_id){
             return redirect(route('posts.index'));
         }
+
         $categories = Category::all();
-        return view('posts.edit', compact('post'));
+
+        $tags = Tag::all();
+
+        return view('posts.edit', compact('post', 'tags'));
     }
 
     /**
@@ -171,6 +179,8 @@ class PostController extends Controller
         $post->update(request(['title', 'description', 'body']));
 
         $post->categories()->sync(request('category'));
+        
+        $post->tags()->sync(request('tags'));
 
         return redirect()->route('posts.show', $post->id)->with('status', 'Post ' . $post->title . ' is successfully updated.');
     }
