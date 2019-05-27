@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\PostController;
+use App\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,33 +14,41 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $posts = Post::latest()->paginate(30);
+    return View::make('posts.index')->with('posts', $posts);
 });
+
+/* Route::get('/posts/{post}', function($slug){ 
+    
+    $post = Post::whereSlug($slug)->first(); 
+    return View::make('posts.show')->with('post', $post);
+
+})->name('posts.show'); */
 
 /* Route::get('/', function () {
     return redirect()->route('posts.index');
 }); */
 
 //Users
-Route::get('/users', 'UsersController@index')->name('users.index');
-Route::get('/users/create', 'UsersController@create')->name('users.create');
-Route::post('/users', 'UsersController@store')->name('users.store');
-Route::get('/users/{user}',	'UsersController@show')->name('users.show');
-Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit');
-Route::patch('/users/{user}',	'UsersController@update')->name('users.update');
-Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');
+Route::get('/users', 'UsersController@index')->name('users.index')->middleware('roles:admin');
+Route::get('/users/create', 'UsersController@create')->name('users.create')->middleware('roles:admin');
+Route::post('/users', 'UsersController@store')->name('users.store')->middleware('roles:admin');
+Route::get('/users/{user}',	'UsersController@show')->name('users.show')->middleware('roles:admin');
+Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit')->middleware('roles:admin');
+Route::patch('/users/{user}',	'UsersController@update')->name('users.update')->middleware('roles:admin');
+Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy')->middleware('roles:admin');
 
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/posts', 'PostController@index')->name('posts.index');
-Route::get('/posts/create', 'PostController@create')->name('posts.create');
-Route::post('/posts', 'PostController@store')->name('posts.store');
-Route::get('/posts/{post}',	'PostController@show')->name('posts.show');
-Route::get('/posts/{post}/edit', 'PostController@edit')->name('posts.edit');
-Route::patch('/posts/{post}',	'PostController@update')->name('posts.update');
-Route::delete('/posts/{post}', 'PostController@destroy')->name('posts.destroy');
+Route::get('/posts/create', 'PostController@create')->name('posts.create')/* ->middleware('roles:editor') */;
+Route::post('/posts', 'PostController@store')->name('posts.store')/* ->middleware('roles:editor') */;
+Route::get('/posts/{slug}',	'PostController@show')->name('posts.show');
+Route::get('/posts/{post}/edit', 'PostController@edit')->name('posts.edit')/* ->middleware('roles:editor') */;
+Route::patch('/posts/{post}',	'PostController@update')->name('posts.update')/* ->middleware('roles:editor') */;
+Route::delete('/posts/{post}', 'PostController@destroy')->name('posts.destroy')/* ->middleware('roles:editor') */;
 Route::get('/search', 'PostController@search'); 
 
 Route::post('/posts/{id}/comment', 'CommentController@store')->middleware('verified');
@@ -48,3 +57,4 @@ Route::get('/posts/categories/{category}', 'CategoryController@index')->name('ca
 
 Route::get('/posts/tags/{tag}', 'TagController@index')->name('tags');
 Route::post('/tags', 'TagController@store')->name('tags.store');
+

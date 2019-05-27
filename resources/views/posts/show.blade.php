@@ -7,7 +7,7 @@
 	</div>
 @endif
 <a name="top"></a>
-<a href="{{ route('posts.show', $post->id) }}">
+<a href="{{ route('posts.show', $post->slug) }}">
     <h2 class="blog-post-title" id=refresh>{{ $post->title }}</h2>
 </a>
 <br>
@@ -32,11 +32,11 @@
     <hr width="100%">
     <!-- uredi od if do else -->
     @if ( $post->user_id == auth()->id() )
-	<form action="{{ route('posts.destroy',$post->id) }}" method="POST">
+	<form action="{{ route('posts.destroy',$post->slug) }}" method="POST">
 		{{ method_field('DELETE') }}
 		{{ csrf_field() }} 
 		<div class="btn-group btn-group-lg">
-			<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-info">Edit</a>
+			<a href="{{ route('posts.edit', $post->slug) }}" class="btn btn-info">Edit</a>
 			<button class="btn btn-danger">Delete</button>
 		</div>
 		<div class="btn-group float-right btn-group-lg">	
@@ -57,7 +57,7 @@
 
 	<div class="card">
             <div class="card-body">
-                <form action="/posts/{{ $post->id }}/comment" method="post">
+                <form action="/posts/{{ $post->slug }}/comment" method="post">
                     @csrf
 
                     <div class="form-group">

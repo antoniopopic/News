@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
-<a href="{{ route('posts.show', $post->id) }}">
+<a href="{{ route('posts.show', $post->slug) }}">
     <h2 class="blog-post-title" id=refresh>{{ $post->title }}</h2>
 </a>
 <br>
-<form method="POST" action="{{ route('posts.update', $post->id) }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('posts.update', $post->slug) }}" enctype="multipart/form-data">
 @method('PATCH')
 @csrf
 <div class="form-group">
@@ -61,7 +61,7 @@ Add New Tag
 
 <div>
     <button type="submit" class="btn btn-primary">Confirm</button>
-    <a href="{{ route('posts.show', $post->id) }}" class="btn btn-danger" role="button">Back</a>
+    <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-danger" role="button">Back</a>
 </div>
 @include('layouts.errors')
 </form>

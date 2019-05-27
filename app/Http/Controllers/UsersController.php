@@ -30,6 +30,8 @@ class UsersController extends Controller
      */
     public function create()
     {
+        request()->user()->authorizeRoles(['admin', 'editor']);
+
         return view('users.create');
     }
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'description', 'body', /* 'slug', */ 'user_id', 'cover_image'];
+    protected $fillable = ['title', 'description', 'body', 'slug', 'user_id', 'cover_image'];
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -22,6 +22,10 @@ class Post extends Model
 
     public function tags(){
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function getRouteKeyName(){
+    return 'slug';
     }
 }
 

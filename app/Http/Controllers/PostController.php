@@ -89,7 +89,8 @@ class PostController extends Controller
             'description'   => request('description'),
             'body'          => request('body'),
             'user_id'       => auth()->id(),
-            'cover_image'   => $fileNameToStore
+            'cover_image'   => $fileNameToStore,
+            'slug'          => str_slug($request->title.substr(time(), -4))
         ]);
 
         $post->categories()->attach(request('category'));
@@ -105,9 +106,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $post = Post::find($id);
+        $post = Post::where('slug', '=', $slug)->first();
 
         return view('posts.show', compact('post'));
 
@@ -146,7 +147,7 @@ class PostController extends Controller
             'title' => ['required', 'min:3', 'max:255'],
             'description' => 'required|min:3|max:255',
             'body' => 'required|min:3|max:65535',
-            'cover_image' => 'image|nullable|max:2043|mimes:jpeg, png, jpg, gif'
+            'cover_image' => 'image|nullable|max:2043|mimes:jpeg, png, jpg, gif',
         ]);
 
         //Handle File Upload
@@ -182,7 +183,7 @@ class PostController extends Controller
         
         $post->tags()->sync(request('tags'));
 
-        return redirect()->route('posts.show', $post->id)->with('status', 'Post ' . $post->title . ' is successfully updated.');
+        return redirect()->route('posts.show', $post->slug)->with('status', 'Post ' . $post->title . ' is successfully updated.');
     }
 
 
