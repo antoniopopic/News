@@ -6,10 +6,13 @@
         {{ session('status') }}
     </div>
 @endif
+<!-- <form class="form-inline my-2 my-lg-0" action="/search" method="GET" id="searchButtonNavbar2">
+    <input class="form-control mr-sm-2" type="search" name="search" id="search" placeholder="Search Users" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchButtonNavbar2">Search</button>
+</form> -->
 <div class="panel-heading">
-    <a href="{{ route('users.create') }}" class="btn btn-primary" role="button" style="margin-top:25px; margin-bottom:10px;">Add new User</a>                
+    <a href="{{ route('users.create') }}" class="btn btn-primary" role="button" id="addUser">Add new User</a>                
 </div>
-
 <div class="panel-body">
     @if($users->count())
     <table class="table table-striped table-bordered table-dark">

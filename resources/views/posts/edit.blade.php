@@ -45,13 +45,13 @@
 @endisset
 
 <label for="tags">Tags:</label>
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTag" style="float: right">
+<button type="button" class="btn btn-primary btn-sm" id=editAddTag data-toggle="modal" data-target="#addTag">
 Add New Tag
 </button>
 <br/>
 <div class="d-block my-3">
         @foreach($tags as $tag)
-        <label class="custom-control overflow-checkbox" style="display:inline">
+        <label class="custom-control overflow-checkbox" id="showTags">
         <input type="checkbox" value="{{ $tag->id }}" name="tags[]" class="overflow-control-input" {{ $tag->posts->contains($post->id) ? 'checked=checked' : ''}}>
             <span class="overflow-control-indicator"></span>
             <span class="overflow-control-description">{{ $tag->name }}</span>

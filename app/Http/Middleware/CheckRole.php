@@ -3,6 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Role;
+use Illuminate\Support\Facades\Auth;
+
 
 class CheckRole
 {
@@ -13,14 +16,40 @@ class CheckRole
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next)
     {
-        if($request->user() === null){
+        $roles = array_slice(func_get_args(), 2);
+
+    foreach ($roles as $role) {
+
+        try {
+
+            Role::whereUsername($role)->firstOrFail();
+
+            if (Auth::user()->hasRole($role)) {
+                return $next($request);
+            }
+
+        } catch (ModelNotFoundException $exception) {
+
+            dd('Could not find role ' . $role);
+
+        }
+    }
+
+    return redirect('/posts')->with('status', 'You are not authorized to view that content.');
+
+    /* return redirect('posts.index')->with('status', 'Not authorized');
+
+    Flash::warning('Access Denied', );
+
+    return redirect('/'); */
+        /* if($request->user() === null){
             return abort(403);
         }
         if($request->user()->hasRole($role)){
             return $next($request);
         }
-        return abort(401);
+        return abort(401); */
     }
 }

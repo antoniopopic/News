@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -33,13 +34,15 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id)
+    public function store($slug)
     {
         $this->validate(request(), ['body' => 'required|min:2']);
 
+        $post=Post::where('slug', $slug)->first();        
+
         Comment::create([
             'body' => request('body'),
-            'post_id' => $id,
+            'post_id' => $post->id,
             'user_id' => auth()->id()
         ]);
 

@@ -3,11 +3,10 @@
 <head>
 @include('layouts.header')
 </head>
-<body style="margin-top:70px">
+<body>
 
 @include('layouts.navbar')
-
-<div class="container">
-    @yield('content')
-</div>
+    <div class="container">
+        @yield('content')
+    </div>
 @include('layouts.footer')

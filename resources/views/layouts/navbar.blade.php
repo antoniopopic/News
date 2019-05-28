@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" id="navbar">
   <div class="container">
   <a class="navbar-brand" href="{{ route('posts.index') }}">
       {{ config('app.name', 'News') }}
@@ -8,24 +8,26 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto" style="margin:0px 20px auto;">
-      <li class="nav-item active">
+    <ul class="navbar-nav mr-auto" id="navbarStyle">
+      <!-- <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li> -->
+      <li class="{{ Request::is('/') ? 'active nav-item' : '' }}">
+        <a class="nav-link" href="{{ url('/')}}">Home</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url('/')}}">Link</a>
-      </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="{{ route('home') }}">Home</a>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <li class="{{ Request::is('posts') ? 'active nav-item' : '' }}">
         <a class="nav-link" href="{{ route('posts.index') }}">Posts</a>
       </li>
-      <li class="nav-item">
+      @if (!Auth::guest() && Auth::user()->hasRole('admin'))
+      <li class="{{ Request::is('users') ? 'active nav-item' : '' }}">
         <a class="nav-link" href="{{ route('users.index') }}">Users</a>  
       </li>
+      @endif
       @foreach($categories as $category)
-        <li class="nav-item">
+        <li class="{{ Request::is('posts/categories/'.$category->name) ? 'active nav-item' : '' }}">
           <a class="nav-link" href="{{ route('categories', $category) }}">{{ $category->name }}</a>
         </li>
       @endforeach    
@@ -34,7 +36,7 @@
     <ul class="navbar-nav ml-auto">
     <form class="form-inline my-2 my-lg-0" action="/search" method="GET">
       <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search Posts" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchButtonNavbar">Search</button>
     </form>
         <!-- Authentication Links -->
         @guest
@@ -59,7 +61,7 @@
                         {{ __('Logout') }}
                     </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
                         @csrf
                     </form>
                 </div>

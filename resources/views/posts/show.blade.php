@@ -16,13 +16,13 @@
 </div>
 <br>
 
-    <img style="width:100%" height="700px" src="/storage/cover_images/{{$post->cover_image}}">
+    <img height="700px" id="showImage" src="/storage/cover_images/{{$post->cover_image}}">
     <br><br> 
     <small>Written on {{$post->created_at->toFormattedDateString()}} by {{$post->user->username}}</small>
     
     @if(count($post->tags))
-        <section style="float:right;">
-            <h6 style="display:inline;">Tags:</h6>
+        <section id="tagsButton">
+            <h6 id="showTags">Tags:</h6>
             @foreach($post->tags as $tag)
                 <a href="{{ route('tags', $tag) }}">{{ $tag->name }}</a>
             @endforeach
@@ -35,26 +35,21 @@
 	<form action="{{ route('posts.destroy',$post->slug) }}" method="POST">
 		{{ method_field('DELETE') }}
 		{{ csrf_field() }} 
-		<div class="btn-group btn-group-lg">
-			<a href="{{ route('posts.edit', $post->slug) }}" class="btn btn-info">Edit</a>
+		<div class="btn-group btn-group-lg float-right">
+			<a href="{{ route('posts.edit', $post->slug) }}" class="btn btn-primary">Edit</a>
 			<button class="btn btn-danger">Delete</button>
 		</div>
-		<div class="btn-group float-right btn-group-lg">	
-			<a class="btn btn-primary" href="{{ route('posts.index') }}">Go Back</a>
-		</div>
-		<hr/>
 	</form>	
-	@else 
+	@endif
 		<div class="btn-group btn-group-lg">	
-			<a class="btn btn-primary" href="{{ route('posts.index') }}">Go Back</a>
+			<a class="btn btn-info" href="{{ route('posts.index') }}">Go Back</a>
 		</div>
 		<hr/>
-	@endif
 	
 	<div>
         {!!$post->body!!}
     </div>
-
+    <hr>
 	<div class="card">
             <div class="card-body">
                 <form action="/posts/{{ $post->slug }}/comment" method="post">
@@ -93,5 +88,5 @@
         @endif
 
 	<hr>
-	<a href="#top">Back to top</a>     
+	<a href="#top" style="margin-bottom:70px">Back to top</a>     
 @endsection

@@ -7,12 +7,12 @@
 @csrf
 
     <label for="tags">Tags:</label><br/>
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTag" style="float: right">
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" id="tagsButton" data-target="#addTag">
         Add New Tag
     </button>
     <div class="d-block my-3">
         @foreach($tags as $tag)
-        <label class="custom-control overflow-checkbox" style="display:inline">
+        <label id="showTags" class="custom-control overflow-checkbox">
             <input type="checkbox" value="{{ $tag->id }}" name="tags[]" class="overflow-control-input">
             <span class="overflow-control-indicator"></span>
             <span class="overflow-control-description">{{ $tag->name }}</span>
