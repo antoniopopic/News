@@ -32,7 +32,7 @@ Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy')
 
 Route::get('/profile', 'UsersController@profile')->name('profile');
 Route::post('/profile', 'UsersController@avatar');
-Route::post('/profile','UsersController@changePassword')->name('changePassword');
+Route::post('/','UsersController@changePassword')->name('changePassword');
 
 Auth::routes(['verify' => true]);
 

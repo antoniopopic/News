@@ -26,22 +26,12 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
             <div class="panel-heading"><h1>Change password</h1></div>
-            <div class="panel-body">
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+            <div class="panel-body">                
                 <form class="form-horizontal" method="POST" action="{{ route('changePassword') }}">
                     @csrf
 
                     <div class="form-group{{ $errors->has('current-password') ? 'is-invalid' : '' }}">
-                        <label for="new-password" class="control-label">Current Password</label>
+                        <label for="current-password" class="control-label">Current Password</label>
                         <input id="current-password" type="password" class="form-control" name="current-password" required>
                     </div>
 
@@ -51,8 +41,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="new-password-confirm" class="control-label">Confirm New Password</label>
-                        <input id="new-password-confirm" type="password" class="form-control" name="new-password_confirmation" required>
+                        <label for="new-password_confirmation" class="control-label">Confirm New Password</label>
+                        <input id="new-password_confirmation" type="password" class="form-control" name="new-password_confirmation" required>
                     </div>
 
                     <div class="form-group">
@@ -61,6 +51,16 @@
                         </button>
                     </div>
                     @include('layouts.errors')
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                 </form>
             </div>
         </div>
