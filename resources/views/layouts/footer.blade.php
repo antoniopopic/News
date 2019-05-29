@@ -4,6 +4,5 @@
     <script>document.getElementById('refresh').onclick = function(){location.reload();};</script>
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>CKEDITOR.replace( 'article-ckeditor' );</script>
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
   </body>
 </html>

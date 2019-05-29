@@ -1,6 +1,8 @@
 <?php
 use App\Http\Controllers\PostController;
 use App\Post;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,10 @@ Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit')->mi
 Route::patch('/users/{user}',	'UsersController@update')->name('users.update')->middleware('roles:admin');
 Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy')->middleware('roles:admin');
 
+Route::get('/profile', 'UsersController@profile')->name('profile');
+Route::post('/profile', 'UsersController@avatar');
+Route::post('/profile','UsersController@changePassword')->name('changePassword');
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', function () {
@@ -47,6 +53,7 @@ Route::get('/posts/{slug}',	'PostController@show')->name('posts.show');
 
 
 Route::post('/posts/{slug}/comment', 'CommentController@store')->middleware('verified');
+Route::get('/posts/{slug}/comments', 'CommentController@show')->name('posts.comments');
 
 Route::get('/posts/categories/{category}', 'CategoryController@index')->name('categories');
 

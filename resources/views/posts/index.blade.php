@@ -8,6 +8,11 @@
           {{ session('status') }}
       </div>
     @endif
+    @if (session('error'))
+      <div class="alert alert-danger">
+          {{ session('error') }}
+      </div>
+    @endif
     <div class="jumbotron">
       <div class="container-fluid">
         <div class="row">

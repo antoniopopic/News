@@ -18,9 +18,9 @@
       <!-- <li class="nav-item">
         <a class="nav-link" href="{{ route('home') }}">Home</a>
       </li> -->
-      <li class="{{ Request::is('posts') ? 'active nav-item' : '' }}">
+      <!-- <li class="{{ Request::is('posts') ? 'active nav-item' : '' }}">
         <a class="nav-link" href="{{ route('posts.index') }}">Posts</a>
-      </li>
+      </li> -->
       @if (!Auth::guest() && Auth::user()->hasRole('admin'))
       <li class="{{ Request::is('users') ? 'active nav-item' : '' }}">
         <a class="nav-link" href="{{ route('users.index') }}">Users</a>  
@@ -50,11 +50,16 @@
             @endif
         @else
             <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->username }} <span class="caret"></span>
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="position:relative; padding-left: 50px;">
+                  <img src="/uploads/avatars/{{Auth::user()->avatar}}" style="width: 32px; height: 32px; top:5px; left:10px; position:absolute; border-radius:50%;">  
+                  {{ Auth::user()->username }} <span class="caret"></span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('editor'))
+                    <a href="{{ route('posts.create') }}" class="dropdown-item">Add new post</a>                
+                  @endif  
+                  <a href="{{url('/profile')}}" class="dropdown-item">Profile</a>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                                       document.getElementById('logout-form').submit();">

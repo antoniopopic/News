@@ -4,12 +4,77 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
+use Image;
+use File;
+use Hash;
 
 class UsersController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function profile()
+    {
+        return view('profile', compact('user'));
+    }
+
+    public function avatar(Request $request)
+    {
+
+        request()->validate([
+            'avatar' => 'image|nullable|max:2043|mimes:jpeg, png, jpg, gif',
+        ]);
+
+        $user = User::find(Auth::user()->id);
+
+        if($request->hasFile('avatar')){
+            $avatar=$request->file('avatar');
+            $filename = time(). '.' . $avatar->getClientOriginalExtension();
+            // Delete current image before uploading new image
+            if ($user->avatar !== 'default.jpg') {
+                $file = public_path('uploads/avatars/' . $user->avatar);
+
+                if (File::exists($file)) {
+                    unlink($file);
+                }
+
+            }
+            Image::make($avatar)->resize(300,300)->save(public_path('/uploads/avatars/'.$filename));
+
+            $user = Auth::user();
+            $user->avatar = $filename;
+            $user->save();
+        }
+        return view('profile', compact('user'));
+    }
+
+    public function changePassword(Request $request)
+    {
+        if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
+            // The passwords matches
+            return redirect(route('changePassword'))->with("error","Your current password does not match with the password you provided. Please try again.");
+        }
+
+        if(strcmp($request->get('current-password'), $request->get('new-password')) == 0){
+            //Current password and new password are same
+            return redirect(route('changePassword'))->with("error","New Password cannot be same as your current password. Please choose a different password.");
+        }
+
+        $request = request()->validate([
+            'current-password' => 'required',
+            'new-password' => 'required|min:8|confirmed',
+        ]);
+
+        //Change Password
+        $user = Auth::user();
+        $user->password = request('new-password');
+        $user->save();
+
+        return redirect(route('changePassword'))->with("success","Password changed successfully!");
+
     }
     /**
      * Display a listing of the resource.

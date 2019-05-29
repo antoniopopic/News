@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
             <form action="{{ route('tags.store') }}" method="post" id="addTagForm">
-                {{ csrf_field() }}
+                @csrf
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name" name="name" value="" />

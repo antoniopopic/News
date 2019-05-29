@@ -20,30 +20,25 @@ class CheckRole
     {
         $roles = array_slice(func_get_args(), 2);
 
-    foreach ($roles as $role) {
+        foreach ($roles as $role) {
 
-        try {
+            try {
 
-            Role::whereUsername($role)->firstOrFail();
+                Role::whereUsername($role)->firstOrFail();
 
-            if (Auth::user()->hasRole($role)) {
-                return $next($request);
+                if (Auth::user()->hasRole($role)) {
+                    return $next($request);
+                }
+
+            } catch (ModelNotFoundException $exception) {
+
+                dd('Could not find role ' . $role);
+
             }
-
-        } catch (ModelNotFoundException $exception) {
-
-            dd('Could not find role ' . $role);
-
         }
-    }
 
-    return redirect('/posts')->with('status', 'You are not authorized to view that content.');
+        return redirect('/posts')->with('error', 'You are not authorized to view that content.');
 
-    /* return redirect('posts.index')->with('status', 'Not authorized');
-
-    Flash::warning('Access Denied', );
-
-    return redirect('/'); */
         /* if($request->user() === null){
             return abort(403);
         }

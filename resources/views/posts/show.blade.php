@@ -30,11 +30,10 @@
     @endif
     
     <hr width="100%">
-    <!-- uredi od if do else -->
-    @if ( $post->user_id == auth()->id() )
+    @if ($post->user_id == auth()->id() || Auth::user()->hasRole('admin'))
 	<form action="{{ route('posts.destroy',$post->slug) }}" method="POST">
-		{{ method_field('DELETE') }}
-		{{ csrf_field() }} 
+		@method('DELETE')
+		@csrf 
 		<div class="btn-group btn-group-lg float-right">
 			<a href="{{ route('posts.edit', $post->slug) }}" class="btn btn-primary">Edit</a>
 			<button class="btn btn-danger">Delete</button>
@@ -54,7 +53,6 @@
             <div class="card-body">
                 <form action="/posts/{{ $post->slug }}/comment" method="post">
                     @csrf
-
                     <div class="form-group">
                         <textarea name="body" placeholder="Your comment here" class="form-control"></textarea>
                     </div>
@@ -74,6 +72,7 @@
                     @foreach($post->comments as $comment)
 
                         <li class="list-group-item">
+                            <img src="/uploads/avatars/{{$comment->user->avatar}}" id="commentImage">&nbsp;  
                             <b>{{ $comment->user->username }},</b>&nbsp;
                             <i>{{ $comment->created_at->diffForHumans() }}</i>:&nbsp;
                             {{ $comment->body }}
@@ -88,5 +87,5 @@
         @endif
 
 	<hr>
-	<a href="#top" style="margin-bottom:70px">Back to top</a>     
+	<a href="#top">Back to top</a>     
 @endsection
