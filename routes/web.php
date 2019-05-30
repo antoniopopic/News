@@ -3,6 +3,8 @@ use App\Http\Controllers\PostController;
 use App\Post;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CommentController;
+use Illuminate\Support\Facades\Input;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,3 +62,10 @@ Route::get('/posts/categories/{category}', 'CategoryController@index')->name('ca
 Route::get('/posts/tags/{tag}', 'TagController@index')->name('tags');
 Route::post('/tags', 'TagController@store')->name('tags.store');
 
+Route::post('/search',function(){
+    $q = Input::get ('q');
+    $users = User::where('username','LIKE','%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->get();
+    if(count($users) > 0)
+        return view('users.index', compact('users'))->withDetails($users)->withQuery ($q);
+    else return view('users.index', compact('users'))->withMessage('No Details found. Try to search again !');
+});

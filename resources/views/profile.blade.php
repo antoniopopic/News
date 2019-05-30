@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
-        <img src="/uploads/avatars/{{Auth::user()->avatar}}" style="width: 175px; height: 175px; float:left; border-radius:50%; margin-right:30px;">
+        <img src="/uploads/avatars/{{Auth::user()->avatar}}" id="avatarImage">
         <h1>{{Auth::user()->username}}'s profile</h1>    
         <form method="POST" action="{{ route('profile') }}" enctype="multipart/form-data">
             @csrf

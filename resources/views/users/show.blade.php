@@ -9,7 +9,7 @@
             @method('DELETE')
             @csrf
             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm" role="button">Edit</a>
-            <button class="btn btn-danger btn-sm">Delete</button>
+            <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
             <a href="{{ route('users.index') }}" class="btn btn-sm" role="button">Back</a>
         </form>
 

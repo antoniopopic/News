@@ -15,6 +15,11 @@ body{
 #searchButtonNavbar:hover{
     background-color:black;
 }
+#searchButtonNavbar3{
+    color: black; 
+    border-color: grey; 
+    float: right;
+}
 #searchButtonNavbar2{
     color: black; 
     border-color: grey; 
@@ -107,4 +112,23 @@ body{
     position:relative; 
     border-radius:50%; 
     float:left;
+}
+#avatarImage{
+    width: 175px; 
+    height: 175px; 
+    float:left; 
+    border-radius:50%; 
+    margin-right:30px;
+}
+#avatarImage2{
+    width: 32px; 
+    height: 32px; 
+    top:5px; 
+    left:10px; 
+    position:absolute; 
+    border-radius:50%;
+}
+.avatarImage21{
+    position:relative; 
+    padding-left: 50px;
 }

@@ -36,7 +36,7 @@
 		@csrf 
 		<div class="btn-group btn-group-lg float-right">
 			<a href="{{ route('posts.edit', $post->slug) }}" class="btn btn-primary">Edit</a>
-			<button class="btn btn-danger">Delete</button>
+			<button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
 		</div>
 	</form>	
 	@endif
