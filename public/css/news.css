@@ -1,0 +1,134 @@
+body{
+    font-family: Georgia, "Times New Roman", Times, serif;
+    margin-top: 70px;
+}
+#navbar{
+    background-color: yellow;
+}
+#navbarStyle{
+    margin:0px 20px auto;
+}
+#searchButtonNavbar{
+    color: white; 
+    border-color: grey; 
+}
+#searchButtonNavbar:hover{
+    background-color:black;
+}
+#searchButtonNavbar3{
+    color: black; 
+    border-color: grey; 
+    float: right;
+}
+#searchButtonNavbar2{
+    color: black; 
+    border-color: grey; 
+    float: right;
+}
+#searchButtonNavbar2:hover{
+    background-color:grey;
+}
+
+#logout-form{
+    display: none;
+}
+#tagsButton{
+    float: right;
+}
+#showTags{
+    display: inline;
+}
+#editAddTag{
+    float: right;
+}
+.card{
+    margin-bottom: 10px;
+}
+.flex-fill{
+    width: 20rem; 
+    height: 300px;
+}
+#showPost{
+    text-decoration:none; 
+    color:black;
+}
+.card-title{
+    overflow: hidden; 
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+#showImage{
+    width:100%;
+}
+#addUser{ 
+    margin-bottom:10px;
+}
+#loginHeader, #registerHead{
+    text-align: center; 
+    background-color: #343A40; 
+    color:#969696;
+}
+#loginBody, #registerBody{
+    background-color:#DDDDDD;
+}
+#loginButton, #registerButton, #profileSubmit{
+    background-color: #BBBBBB;
+    border: black;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;    
+}
+#login, #password, #username, #password, #password_confirmation, #password-confirm, #email, #search, #new-password, #new-password_confirmation, #current-password{
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-color: gray;
+    outline: gray;
+}
+#forgotYourPassword, #loginToRegister, #registerToLogin{
+    border: black;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+}
+#loginToRegister, #registerToLogin{
+    margin-top: 10px;
+}
+#remember{
+    height: 15px;
+    width: 15px;
+}
+.nav-item:hover .active{
+    color: white;
+}
+#commentImage{
+    width: 20px; 
+    height: 20px; 
+    position:relative; 
+    border-radius:50%; 
+    float:left;
+}
+#avatarImage{
+    width: 175px; 
+    height: 175px; 
+    float:left; 
+    border-radius:50%; 
+    margin-right:30px;
+}
+#avatarImage2{
+    width: 32px; 
+    height: 32px; 
+    top:5px; 
+    left:10px; 
+    position:absolute; 
+    border-radius:50%;
+}
+.avatarImage21{
+    position:relative; 
+    padding-left: 50px;
+}
